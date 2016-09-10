@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>2-9</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#wrap{
+			width: 300px;
+			margin: 10px auto;
+			border: 1px solid #ccc;
+		}
+		#tab{
+			padding: 10px 10px 10px 30px;
+			background: #C3CCD2;
+			border: 2px solid #fff;
+			font-size: 16px;
+			color: #57646E;
+			cursor: pointer;
+		}
+		ul{
+			list-style: none;
+			cursor: pointer;
+		}
+		li{
+			padding: 6px 0 2px 10px; 
+			font-size: 14px;
+			background: #e9edf2;
+			color: #6b7980;
+		}
+		li:last-child{
+			padding-bottom: 8px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var tab=document.getElementById("tab");
+			var ul=document.getElementsByTagName('ul')[0];
+			var li=ul.getElementsByTagName("li");
+			tab.onclick=function(){
+				ul.style.display=="none" ? ul.style.display="block" : ul.style.display="none";
+			}
+			for (var i = 0; i < li.length; i++) {
+				li[i].onmouseover=function(){
+					this.style.background="#fff";
+				}
+				li[i].onmouseout=function(){
+					this.style.background="#e9edf2";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="tab">
+			播放列表...
+		</div>
+			<ul>
+				<li>Dat $tick - Rich Chigga</li>
+				<li>Look Alive- Rae Sremmurd</li>
+				<li>Chill Bill - Rob $tone</li>
+				<li>Panda(remix) - HigherBrothers</li>
+				<li>Snapback $ Tattoos Remix- Ma$iWei</li>
+				<li>Broccoli - Lil Yachty</li>
+			</ul>
+	</div>
+</body>
+</html>

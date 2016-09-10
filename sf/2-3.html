@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		#wrap{
+			margin: 0 auto;
+			width: 600px;
+		}
+		#text{
+			width: 300px;
+			ime-mode:disabled;
+		}
+		#wrap span{
+			margin: 10px 0;
+			font-size: 12px;
+			color: #999;
+			display: block;
+		}
+		#btn{
+			display: block;
+		}
+		#sum{
+			margin-top: 10px;
+			color: red;
+			font-size: 36px;
+			font-weight: bolder;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var text=document.getElementById("text");
+			var btn=document.getElementById("btn");
+			var sum=document.getElementById("sum");
+			text.onkeydown=function(ev){
+				ev=ev||window.event;
+				if (!(ev.keyCode>=48 && ev.keyCode<=57 || ev.keyCode>=96 && ev.keyCode<=105 || ev.keyCode>=37 && ev.keyCode<=40 || ev.keyCode== 188 || ev.keyCode == 8|| ev.keyCode==13)){
+					return false;
+				}
+				if(ev.keyCode==13) {
+					fSum();
+				}
+			}
+			btn.onclick=fSum;
+		}
+		function fSum(){
+			var txts=0;
+			var txt=text.value.split(",");
+			for(var i=0;i<txt.length;i++){
+				 txts += parseInt(txt[i]);
+			}
+			if (isNaN(txts)) {
+				sum.innerHTML="输入错误！请重新输入!";
+			}else{
+				sum.innerHTML=txts;
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<input id="text" type="text" name="" value="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15">
+		<span>输入数字求和，数字之间用半角","号分隔，使用上下键可回到最前或最后。</br>
+		（除数字键，方向键，退格键，其他键都已禁用！另：禁止输入中文！)</span>
+		<input id="btn" type="button" name="" value="求和">
+		<div id="sum">sum</div>
+	</div>
+</body>
+</html>

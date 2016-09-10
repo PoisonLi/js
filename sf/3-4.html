@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>3-4</title>
+	<style type="text/css">
+		div{
+			width: 500px;
+			margin: 10px auto;
+		}
+		.text{
+			display: inline-block;
+			width: 80px;
+		}
+		span{
+			color: red;
+			font-weight: bolder;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var text=document.getElementsByClassName("text");
+			var btn=document.getElementById("btn");
+			var span=document.getElementsByTagName('span')[0];
+			for (var i = 0; i < text.length; i++) {
+				text[i].onkeydown=function(ev){
+					ev=ev||window.event;
+					if (!(ev.keyCode>=48 && ev.keyCode<=57 || ev.keyCode == 8 || ev.keyCode==13 || ev.keyCode==9)) {
+						return false;
+					}
+					if(ev.keyCode==13){
+						fSum();
+					}
+				}
+			}
+			btn.onclick=fbtn;
+		}
+		function fbtn(){
+			var text=document.getElementsByClassName("text");
+			var span=document.getElementsByTagName('span')[0];
+			var max=Math.max(text[0].value,text[1].value);
+			if (isNaN(max)) {
+				alert("输入错误，请重新输入！");
+			}
+			else{
+				span.innerHTML=max;
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<input class="text" type="text" name="">
+		vs
+		<input class="text" type="text" name="">
+		<input id="btn" type="button" name="" value="较大的数是>>">
+		<span>?</span>
+	</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#wrap{
+			margin-top: 10px;
+			text-align: center;
+		}
+		#choose{
+			display: none;
+			margin: 10px auto;
+			width: 50px;
+			line-height: 2;
+			list-style: none;
+			font-family: "微软雅黑";
+			font-size: 12px;
+			border: 1px solid #9A99FF;
+			cursor: pointer;
+			color: #00c;
+		}
+		#choose li:hover{
+			background: #d9e1f6;
+		}
+		#close{
+			background: #d9e1f6;
+			border-top: 1px solid #9A99FF;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var btn=document.getElementsByTagName("input")[0];
+			var close=document.getElementById("close");
+			var choose=document.getElementById("choose");
+			close.onclick=function(){
+				choose.style.display="none";
+			}
+			btn.onclick=function(){
+				choose.style.display=choose.style.display=="none"?"block":"none";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<input id="btn1" type="button" name="" value="输入法">
+		</br>
+		<ul id="choose">
+			<li>手写</li>
+			<li>拼音</li>
+			<li id="close">关闭</li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>控制div属性</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+		#oDiv{
+			margin: 20px;
+			width: 100px;
+			height: 100px;
+			background: black;
+			margin: 10px auto;
+		}
+	</style>
+	<script type="text/javascript">
+		/*window.onload=function(){
+			var height=document.getElementById("height");
+			var width=document.getElementById("width");
+			var color=document.getElementById("color");
+			var reset=document.getElementById("reset");
+			var dis=document.getElementById("display");
+			var oDiv=document.getElementById("oDiv");
+
+			height.onclick=function(){
+				oDiv.style.height="200px";
+			}
+			width.onclick=function(){
+				oDiv.style.width="200px";
+			}
+			color.onclick=function(){
+				oDiv.style.backgroundColor="red";
+			}
+			dis.onclick=function(){
+				oDiv.style.display="none";
+			}
+			reset.onclick=function(){
+				oDiv.style.display="block";
+				oDiv.style.backgroundColor="black";
+				oDiv.style.width="100px";
+				oDiv.style.height="100px";
+			}
+		}*/
+		window.onload=function(){
+			var btn=document.getElementsByTagName("input");
+			var oDiv=document.getElementById("oDiv");
+			var att=["height","width","backgroundColor","display","display"];
+			var val=["200px","200px","red","none","block"];
+
+			for (var i = 0; i < btn.length; i++) {
+				btn[i].index=i;
+				btn[i].onclick=function(){
+					if (this.index==btn.length-1){
+						oDiv.style.cssText="";
+					}
+					changeStyle(oDiv,att[this.index],val[this.index])
+				}
+			}
+		}
+		function changeStyle(ele,attr,value){
+			ele.style[attr]=value;
+		}
+	</script>
+</head>
+<body>
+	<input type="button" name="" id="height" value="变高">
+	<input type="button" name="" id="width" value="变宽">
+	<input type="button" name="" id="color" value="变色">
+	<input type="button" name="" id="display" value="隐藏">
+	<input type="button" name="" id="reset" value="复原">
+	<div id="oDiv"></div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>3-8</title>
+	<style type="text/css">
+		div{
+			width: 260px;
+			margin: 10px auto;
+			padding: 30px;
+			background: black;
+			color: #fff;
+			font-family: "微软雅黑";
+			font-size: 16px;
+			text-align: center;
+		}
+		span{
+			padding: 2px 10px;
+			background: #fff;
+			color: black;
+			border: 2px solid #b4b4b4;
+			margin: 0 10px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var aSpan=document.getElementsByTagName("span");
+			function checkTime(i){  //补位处理
+			    if(i<10){
+			        i='0'+i;
+			    } 
+			    	return i;
+			 	}
+			function tick(){
+				var now=new Date();
+				var aDate=[now.getHours(),now.getMinutes(),now.getSeconds()];
+				for(var i in aDate){
+					aSpan[i].innerHTML=checkTime(aDate[i]);
+				}
+			}	
+			setInterval(tick,500);
+			tick();
+		}
+	</script>
+</head>
+<body>
+	<div> 
+		<span>00</span>时<span>00</span>分<span>00</span>秒
+	</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>3-9</title>
+	<style type="text/css">
+		div{
+			width: 320px;
+			margin: 10px auto;
+			padding: 30px;
+			background: black;
+			color: #fff;
+			font-family: "微软雅黑";
+			font-size: 16px;
+			text-align: center;
+		}
+		span{
+			padding: 2px 10px;
+			background: #fff;
+			color: black;
+			border: 2px solid #b4b4b4;
+			margin: 0 10px;
+		}
+		input{
+			width: 283px;
+			height: 50px;
+			margin-top: 30px;
+			padding: 10px;
+			border: none;
+			background: url(btn-1.png);
+		}
+		.cancel{
+			background-position: 0 -50px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var inp=document.getElementsByTagName("input")[0];
+			
+			inp.onclick=function(){
+				this.className==""?(timer=setInterval(time,1000),time()):(clearInterval(timer));
+				this.className=this.className==""?"cancel":"";
+			}
+			function format(a){
+				return a.toString().replace(/^(\d)$/,'0$1');
+			}
+			function time(){
+				var aSpan=document.getElementsByTagName("span");
+				var remain=aSpan[0].innerHTML.replace(/^0/,'')*60+parseInt(aSpan[1].innerHTML.replace(/^0/,''));
+				if (remain<=0) {
+					clearInterval(timer);
+					return;
+				}
+				remain--;
+				aSpan[0].innerHTML=format(parseInt(remain/60));
+				remain%=60;
+				aSpan[1].innerHTML=format(parseInt(remain));
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<span>02</span>分钟<span>10</span>秒
+		<input type="button" name="">
+	</div>
+</body>
+</html>

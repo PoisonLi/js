@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		#wrap{
+			width: 200px;
+			margin: 0 auto;
+			text-align: center;
+			font-size: 11px;
+			font-family: "微软雅黑";
+			cursor: pointer;
+		}
+		input{
+			margin-left: -99px;
+			cursor: pointer;
+			vertical-align: middle;
+		}
+		#warn{
+			display: none;
+			width: 200px;
+			margin-top: 10px ;
+			text-align: left;
+			background: #ffefa4;
+			border: 1px solid #f90;
+			padding: 5px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var input=document.getElementsByTagName("label")[0];
+			var warn=document.getElementById("warn");
+			input.onmouseover=function(){
+				warn.style.display="block";
+			}
+			input.onmouseout=function(){
+				warn.style.display="none";
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<label>
+			<input type="checkbox" name="choose" value="warn">
+			两周内自动登录
+		</label>
+		<div id="warn">为了您的信息安全，请不要在网吧或公用电脑上使用此功能
+		</div>
+	</div>
+</body>
+</html>

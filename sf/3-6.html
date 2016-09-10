@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>3-6</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+		input:first-child{
+			width: 60px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var text=document.getElementsByTagName("input")[0];
+			var btn=document.getElementsByTagName("input")[1];
+			text.onkeydown=function(ev){
+				ev=ev||window.event;
+				if (!(ev.keyCode>=48 && ev.keyCode<=57 || ev.keyCode>=96 && ev.keyCode<=105 || ev.keyCode>=37 && ev.keyCode<=40 || ev.keyCode==8|| ev.keyCode==13)){
+					return false;
+				}
+				if(ev.keyCode==13) {
+					fText();
+				}
+			}
+			btn.onclick=fText;
+		}
+		function fText(){
+			var text=document.getElementsByTagName("input")[0];
+			var tva=text.value.length;
+			if (tva==0 || isNaN(text.value)) {
+				alert("请输入数字！");
+			}else{
+				alert("您输入的数是 "+text.value.length+" 位数！");
+			}
+		}
+	</script>
+</head>
+<body>
+
+	<input type="text" name="">
+	<input type="button" name="" value="判断数字为几位数">
+</body>
+</html>

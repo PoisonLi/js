@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>2-10</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#wrap{
+			margin: 10px auto;
+			width: 710px;
+			overflow: hidden;
+			text-align: center;
+			padding: 10px 0;
+			border: 1px solid #ccc;
+			font-family: "微软雅黑";
+			font-weight: bold;
+		}
+		ul{
+			width: 660px;
+			margin: 0 auto;
+		}
+		li{
+			box-sizing: border-box;
+			width: 120px;
+			height: 120px;
+			float: left;
+			list-style: none;
+			margin-top: 16px;
+			margin-left: 10px;
+			color: #666;
+			line-height: 2;
+			border: 1px solid #333;
+			background: #f0f0f0;
+		}
+		li h3{
+			font-size: 16px;
+		}
+		li p{
+			font-size: 14px;
+
+		}
+		img{
+			display: none;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var img=document.getElementsByTagName('img');
+			var li=document.getElementsByTagName('li');
+			var oDiv=document.getElementById("wrap").getElementsByTagName("div");
+			for(var i=0;i<li.length;i++){
+				li[i].index=i;
+				li[i].onmouseover=function(){
+					oDiv[this.index].style.display="none";
+					img[this.index].style.display="block";
+					this.style.border="none";
+				}
+				li[i].onmouseout=function(){
+					oDiv[this.index].style.display="block";
+					img[this.index].style.display="none";
+					this.style.border="1px solid #333";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		鼠标经过显示图片
+		<ul>
+			<li>
+				<img src="img/1.jpg">
+				<div>
+					<h3>
+						BMW
+					</h3>
+					<p>
+						宝马
+					</p>
+				</div>
+			</li>
+			<li>
+				<div>
+					<h3>
+						Alfa Romeo
+					</h3>
+					<p>
+						阿尔法-罗密欧
+					</p>
+				</div>
+				<img src="img/2.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Skoda
+					</h3>
+					<p>
+						斯柯达
+					</p>
+				</div>
+				<img src="img/3.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Volkswagen
+					</h3>
+					<p>
+						大众
+					</p>
+				</div>
+				<img src="img/4.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Saab
+					</h3>
+					<p>
+						萨博
+					</p>
+				</div>
+				<img src="img/5.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Lamborghini
+					</h3>
+					<p>
+						兰博基尼
+					</p>
+				</div>
+				<img src="img/6.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Porsche
+					</h3>
+					<p>
+						保时捷
+					</p>
+				</div>
+				<img src="img/7.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Peugeot
+					</h3>
+					<p>
+						标致
+					</p>
+				</div>
+				<img src="img/8.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Mercedes-Benz
+					</h3>
+					<p>
+						梅赛德斯-奔驰
+					</p>
+				</div>
+				<img src="img/9.jpg">
+			</li>
+			<li>
+				<div>
+					<h3>
+						Buick
+					</h3>
+					<p>
+						别克
+					</p>
+				</div>
+				<img src="img/10.jpg">
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

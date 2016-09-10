@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>2-5</title>
+	<style type="text/css">
+		#wrap{
+			text-align: center;
+			font-family: "微软雅黑";
+			font-size: 12px;
+		}
+		input{
+			margin-top: 8px;
+		}
+		#show{
+			box-sizing: border-box;
+			width: 200px;
+			height: 200px;
+			margin: 10px auto;
+			background: black;
+			color: #fff;
+			padding: 20px;
+			text-align: left;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var name=document.getElementById("name");
+			var value=document.getElementById("value");
+			var sure=document.getElementById("sure");
+			var reset=document.getElementById("reset");
+			var show=document.getElementById("show");
+			sure.onclick=function(){
+				show.style[name.value]=value.value;
+			}
+			reset.onclick=function(){
+				show.removeAttribute("style");
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<label>
+			属性名：<input id="name" type="text" name="" value="background">
+		</label>
+		</br>
+		<label>
+			属性值：<input id="value" type="text" name="" value="red">
+		</label>
+		</br>
+		<input id="sure" type="button" name="" value="确定">
+		<input id="reset" type="button" name="" value="重置">
+		<div id="show">在上方输入框输入"属性名"及"属性值"，点击确定按钮查看效果</div>
+	</div>
+</body>
+</html>

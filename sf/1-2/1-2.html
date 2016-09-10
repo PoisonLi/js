@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			font-size: 12px;
+		}
+		body{
+			background: #A3C5A8;
+			height:100%;
+			width: 100%;
+		}
+		#div1{
+			width: 500px;
+			margin: 0 auto;	
+		}
+		#tul{
+			margin: 10px 0;
+		}
+		#tul li{
+			box-sizing: border-box;
+			width: 16px;
+			height: 16px;
+			display: inline-block;
+			cursor: pointer;
+		}
+		#red{
+			border: 4px solid red;
+			background: red;
+		}
+		#green{
+			border: 4px solid green;
+			background: green;
+		}
+		#black{
+			border: 4px solid black;
+			background: black;
+		}
+		.current{
+			background: #fff!important;
+		}
+		#ul1{
+			border: 1px solid #fff;
+			display: inline-block;
+			background: green;
+		}
+		#ul1 li{
+			border-left: 1px solid #fff;
+			width: 70px;
+			height: 30px;
+			line-height: 30px;
+			float: left;
+			text-align: center;
+			list-style: none;
+			cursor: pointer;
+		}
+		#ul1 li:first-child{
+			border: none;
+		}
+		#ul1 li a{
+			text-decoration: none;
+			color: #fff;
+		}
+	</style>
+	<script type="text/javascript">
+		/*window.onload=function(){
+			var red=document.getElementById("red");
+			var green=document.getElementById("green");
+			var black=document.getElementById("black");
+			var ul=document.getElementById("ul1");
+
+			red.onclick=function(){
+				red.style.background="#fff"
+				ul.style.background="red";
+				green.style.background="green";
+		 		black.style.background="black";
+				document.body.style.background="#FDD";
+			}
+			green.onclick=function(){
+				ul.style.background="green";
+				red.style.background="red";
+				black.style.background="black";
+				green.style.background="#fff"
+				document.body.style.background="rgb(163, 197, 168)";
+			}
+			black.onclick=function(){
+				ul.style.background="black";
+				red.style.background="red";
+				green.style.background="green";
+				black.style.background="#fff"
+				document.body.style.background="#ccc";
+			}
+		}*/
+		window.onload=function(){
+			var tab=document.getElementById("tul").getElementsByTagName("li");
+			var oLink=document.getElementsByTagName("link")[0];
+
+			for(var i=0;i<tab.length;i++){
+				tab[i].onclick=function(){
+					for(var j in tab){
+						tab[j].className="";
+					}
+					this.className="current"
+					oLink['href']=this.id+".css";
+				}
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="div1">
+		<ul id="tul">
+			<li id="red"></li>
+			<li id="green" class="current"></li>
+			<li id="black"></li>
+		</ul>
+		<ul id="ul1">
+			<li><a href="">新闻</a></li>
+			<li><a href="">新闻</a></li>
+			<li><a href="">新闻</a></li>
+			<li><a href="">新闻</a></li>
+			<li><a href="">新闻</a></li>
+			<li><a href="">新闻</a></li>
+		</ul>
+	</div>
+</body>
+</html>

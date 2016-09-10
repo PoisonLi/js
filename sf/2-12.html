@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		#wrap{
+			width: 100px;
+			margin: 10px auto;
+			padding: 10px;
+			border: 1px solid black;
+			border-radius: 6px; 
+			font-family: "微软雅黑";
+			font-size: 12px;
+		}
+		#all{
+			padding-bottom: 10px;
+			border-bottom: 1px solid black;
+			font-weight: bold;
+		}
+		#all a{
+			color: #09f;
+			text-decoration: none;
+		}
+		#all a:hover{
+			cursor: pointer;
+			color: red;
+		}
+		#check{
+			padding-top: 10px;
+			line-height: 2.6;
+ 		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var all=document.getElementById("allc");
+			var ocheck=document.getElementById("ocheck");
+			var check=document.getElementById("check").getElementsByTagName('input');
+			all.onclick=function(){
+				for (var i = 0,n=0; i < check.length; i++) {
+						check[i].checked=true;
+
+				}
+			}
+			ocheck.onclick=function(){
+				for (var i = 0; i < check.length; i++) {
+					check[i].checked==true ? check[i].checked=false:check[i].checked=true;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="all">
+			<a id="allc" href="javascript:">全选</a>
+			<a id="ocheck" href="javascript:">反选</a>
+		</div>
+		<div id="check">
+			<input type="checkbox" name="">选项（一）
+			<input type="checkbox" name="">选项（二）
+			<input type="checkbox" name="">选项（三）
+			<input type="checkbox" name="">选项（四）
+			<input type="checkbox" name="">选项（五）
+			<input type="checkbox" name="">选项（六）
+			<input type="checkbox" name="">选项（七）
+			<input type="checkbox" name="">选项（八）
+			<input type="checkbox" name="">选项（九）
+			<input type="checkbox" name="">选项（十）
+		</div>
+	</div>
+</body>
+</html>
