@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>4-7</title>
+	<style type="text/css">
+		div{
+			padding: 12px;
+			margin: 12px 0;
+			background: #f0f0f0;
+			font-size: 14px;
+			color: green;
+			border: 1px dotted #333;
+			word-wrap:break-word
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var div=document.getElementsByTagName("div");
+			var deleteJ=document.getElementById("deleteJ");
+			var deleteD=document.getElementById("deleteD");
+			var copy=document.getElementById("copy");
+			var originalN=document.getElementById("originalN");
+			var originalC=document.getElementById("originalC");
+			var deleteT=document.getElementById("deleteT");
+			var deleteTT=document.getElementById("deleteTT");
+			var joinT=document.getElementById("joinT");
+			var replaceTT=document.getElementById("replaceTT");
+			var bs1=bs2=true;
+			var tmp=[];
+			//将div中的内容转换为数组
+			function getArray(str){
+				tmp.length=0;
+				str=str.split(",");
+				for(var i in str){
+					tmp.push(str[i]);
+				}
+				return tmp;
+			}
+			//删除,添加第一项
+			deleteJ.onclick=function(){
+				tmp=getArray(div[0].innerHTML);
+				bs1?(tmp.shift(),this.value=this.value.replace("删除","添加"),bs1=false):(tmp.unshift("January(1)"),this.value=this.value.replace("添加","删除"),bs1=true);
+				div[0].innerHTML=tmp;
+			}
+			//删除,添加最后一项
+			deleteD.onclick=function(){
+				tmp=getArray(div[0].innerHTML);
+				bs2?(tmp.pop(),this.value=this.value.replace("删除","添加"),bs2=false):(tmp.push("December(12)"),this.value=this.value.replace("添加","删除"),bs2=true);
+				div[0].innerHTML=tmp;
+			}
+			//复制当前内容
+			copy.onclick=function(){
+				tmp=getArray(div[1].innerHTML);
+				div[1].innerHTML=tmp.concat(tmp).toString().replace(/\s/g,"");
+			}
+			//还原成初始内容  第二个div
+			originalN.onclick=function(){
+				tmp=getArray(div[1].innerHTML);
+				tmp.length=10;
+				div[1].innerHTML=tmp;	
+			}
+			//还原成初始内容  第三个div
+			originalC.onclick=function(){
+				div[2].innerHTML="red,green,blue,white,yellow,black,brown";
+			}
+			//删除前三项
+			deleteT.onclick=function(){
+				tmp=getArray(div[2].innerHTML);
+				tmpC1=tmp.slice(3);
+				div[2].innerHTML=tmpC1;
+			}
+			//删除第二第三项
+			deleteTT.onclick=function(){
+				tmp=getArray(div[2].innerHTML);
+				tmp.splice(1,2);
+				div[2].innerHTML=tmp;
+			}
+			//在第二项后插入项
+			joinT.onclick=function(){
+				tmp=getArray(div[2].innerHTML);
+				tmp.splice(1,0,"orange","purple");
+				div[2].innerHTML=tmp;
+			}
+			//替换第二项和第三项
+			replaceTT.onclick=function(){
+				tmp=getArray(div[2].innerHTML);
+				tmp.splice(1,2,"替换的内容","替换的内容");
+				div[2].innerHTML=tmp;
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		January(1),February(2),March(3),April(4),May(5),June(6),July(7),Aguest(8),September(9),October(10),November(11),December(12)
+	</div>
+	<input id="deleteJ" type="button" name="" value="删除January(1)">
+	<input id="deleteD" type="button" name="" value="删除December(12)">
+	<div>
+		0,1,2,3,4,5,6,7,8,9
+	</div>
+	<input id="copy" type="button" name="" value="复制">
+	<input id="originalN" type="button" name="" value="还原">
+	<div>
+		red,green,blue,white,yellow,black,brown
+	</div>
+	<input id="originalC" type="button" name="" value="还原">
+	<input id="deleteT" type="button" name="" value="删除前三项">
+	<input id="deleteTT" type="button" name="" value="删除第二至三项">
+	<input id="joinT" type="button" name="" value="在第二项插入(orange,purple)">
+	<input id="replaceTT" type="button" name="" value="替换第二项和第三项">
+</body>
+</html>
