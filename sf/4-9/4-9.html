@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>4-9</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			font-family: "微软雅黑";
+		}
+		span{
+			display: inline-block;
+			font-size: 14px;
+			float: left;
+		}
+		span,ul{
+			position: relative;
+			top: 10px;
+			left: 500px;
+		}
+		ul{
+			float: left;
+			display: inline-block;
+			margin-left: 10px;
+		}
+		li{
+			width: 22px;
+			float: left;
+			margin-left: 3px;
+			list-style: none;
+			text-indent: -99999px;
+			background: url(star.png) no-repeat;
+			cursor: pointer;
+		}
+		a{
+			text-decoration: none;
+		}
+		.score{
+			color: #f60;
+			margin-left: 10px;
+			font-weight: bolder;
+		}
+		.rated{
+			color: #666;
+		}
+		div{
+			display: none;
+			position: absolute;
+			top: 36px;
+			width: 160px;
+			height: 60px;
+			padding: 6px 6px 0 10px;
+			font-size: 12px;
+			border: 1px solid #ccc;
+		}
+		.score1{
+			color: #f60;
+		}
+		.on{
+			background-position: 0 -28px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var span=document.getElementsByTagName("span");
+			var ul=document.getElementsByTagName("ul")[0];
+			var li=document.getElementsByTagName("li");
+			var div=document.getElementsByTagName("div")[0];
+			var iStar=iScore=0;
+			var aMsg=[
+				"很不满意|差得太离谱，与卖家描述的严重不符，非常不满",
+				"不满意|部分有破损，与卖家描述的不符，不满意",
+				"一般|质量一般，没有卖家描述的那么好",
+				"满意|质量不错，与卖家描述的基本一致，还是挺满意的",
+				"非常满意|质量非常好，与卖家描述的完全一致，非常满意"
+			]
+			for (var i = 0; i < li.length; i++) {
+				li[i].index=i;
+				li[i].onmouseover=function(){
+					fPoint(this.index);
+					div.style.display="block";
+					div.innerHTML="<p class='score1'>"+(this.index+1)+"分 "+aMsg[this.index].match(/(.+)\|/)[1]+"</p><p>"+aMsg[this.index].match(/\|(.+)/)[1];
+					div.style.left=ul.offsetLeft+this.index*this.offsetWidth-104+"px";
+				}
+				li[i].onmouseout=function(){
+					fPoint();
+					div.style.display="none";
+				}
+				li[i].onclick=function(){
+					iStar=this.index;
+					div.style.display="none";
+					span[1].innerHTML=this.index+1+"分";
+					span[2].innerHTML="("+aMsg[this.index].match(/\|(.+)/)[1]+")";
+				}
+			}
+			function fPoint(arg){
+				iScore=arg||iStar;
+				for (var i = 0; i < li.length; i++) {
+					li[i].className=i<=iScore?"on":"";
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<span>点击星星就能打分：</span>
+	<ul>
+		<li><a href="javascript:">1</a></li>
+		<li><a href="javascript:">1</a></li>
+		<li><a href="javascript:">1</a></li>
+		<li><a href="javascript:">1</a></li>
+		<li><a href="javascript:">1</a></li>
+	</ul>
+	<div></div>
+	<span class="score"></span>
+	<span class="rated"></span>
+</body>
+</html>
