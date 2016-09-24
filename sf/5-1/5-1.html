@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>模拟select控件</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: #23384E;
+			font-family: "微软雅黑";
+		}
+		.search{
+			position: relative;
+			width: 350px;
+			margin: 10px auto;
+			background: url(search.jpg) no-repeat;
+		}
+		.box{
+			height: 34px;
+			margin: 0 20px 0 36px;
+			background: url(search.jpg) repeat-x;
+			background-position: 0 -34px;
+		}
+		span{
+			float: left;
+			width: 190px;
+			margin-top: 5px;
+			font-size: 14px;
+			color: #fff;
+			background: url(search.jpg) no-repeat;
+			background-position: 0 -68px;
+			padding-left: 10px;
+			cursor: pointer;
+		}
+		input{
+			float: left;
+			width: 60px;
+			margin: 5px 0 0 20px;
+			background: url(search.jpg) no-repeat;
+			background-position: -3px -93px;
+			cursor: pointer;
+		}
+		ul{
+			position: absolute;
+			top: 30px;
+			left: 36px;
+			width: 198px;
+			
+			border: 1px solid #fff;
+			display: none;
+		}
+		li{
+			color: #fff;
+			border-bottom: 1px dotted #fff; 
+			padding: 2px 0 2px 10px;
+			font-size: 14px;
+			background: #2b2b2b;
+			list-style: none;
+			cursor: pointer;
+		}
+		li:last-child{
+			border: none;
+		}
+		li:hover{
+			background: #8b8b8b;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var span=document.getElementsByTagName("span")[0];
+			var li=document.getElementsByTagName("li");
+			var ul=document.getElementsByTagName("ul")[0];
+			span.onclick=function(){
+				ul.style.display=ul.style.display=="block"?"none":"block";
+				var ev=ev||event;
+				ev.stopPropagation();
+			}
+			document.onclick=function(){
+				ul.style.display="none";
+			}
+			for (var i = 0; i < li.length; i++) {
+				li[i].onclick=function(){
+					span.innerHTML=this.innerHTML;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="search">
+		<div class="box">
+			<span>请选择游戏名称</span>
+			<input type="button" name="" value="搜索">
+		</div>
+		<ul>
+			<li>守望先锋</li>
+			<li>英雄联盟</li>
+			<li>DOTA2</li>
+			<li>GTA5</li>
+			<li>美国末日</li>
+			<li>刺客信条大革命</li>
+			<li>孤岛惊魂3</li>
+		</ul>
+	</div>
+</body>
+</html>
