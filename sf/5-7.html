@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>用键盘控制Div</title>
+	<style type="text/css">
+		body{
+			overflow: hidden;
+		}
+		pre{
+			padding: 10px 0 0 20px;
+			background: #f0f0f0;
+			color: green;
+			border: 1px dotted #333;
+		}
+		div{
+			position: absolute;
+			width: 120px;
+			height: 120px;
+			background: red;
+			top: 60px;
+			left: 360px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementsByTagName("div")[0];
+			var bLeft=bTop=bRight=bBottom=bCtrl=false;
+			var boTop=getStyle(box,"top");
+			var boLeft=getStyle(box,"left");
+			var boWidth=getStyle(box,"width");
+			var boHeight=getStyle(box,"height");
+			var boColor=getStyle(box,"background");
+			//键盘按下时的效果
+			setInterval(function(){
+				if (bLeft) {
+					box.style.left=box.offsetLeft-10+"px";
+				}else if(bRight){
+					box.style.left=box.offsetLeft+10+"px";
+				}
+				if (bTop) {
+					box.style.top=box.offsetTop-10+"px";
+				}else if (bBottom) {
+					box.style.top=box.offsetTop+10+"px";
+				}
+				limit();
+			},30);
+			document.onkeydown=function(event){
+				var event=event||window.event;
+				bCtrl=event.ctrlKey;
+				switch(event.keyCode){
+					//按下左方向键
+					case 37:
+						bLeft=true;
+						break;
+					//按下(Ctrl+)上方向键
+					case 38:
+						if (bCtrl){
+							var oldWidth=box.offsetWidth;
+							var oldHeight=box.offsetHeight;
+							box.style.width=oldWidth*1.5+"px";
+							box.style.height=oldHeight*1.5+"px";
+							box.style.left=box.offsetLeft-(box.offsetWidth-oldWidth)/2+"px";
+							box.style.top=box.offsetTop-(box.offsetHeight-oldHeight)/2+"px";
+							break;
+						}
+						bTop=true;
+						break;
+					//按下右方向键
+					case 39:
+						bRight=true;
+						break;
+					//按下(Ctrl+)下方向键
+					case 40:
+						if (bCtrl){
+							var oldWidth=box.offsetWidth;
+							var oldHeight=box.offsetHeight;
+							box.style.width=oldWidth*0.75+"px";
+							box.style.height=oldHeight*0.75+"px";
+							box.style.left=box.offsetLeft-(box.offsetWidth-oldWidth)/2+"px";
+							box.style.top=box.offsetTop-(box.offsetHeight-oldHeight)/2+"px";
+							break;
+						}
+						bBottom=true;
+						break;
+					//按下Ctrl+1
+					case 49:
+						bCtrl&&(box.style.background="green");
+						break;
+					//按下Ctrl+2
+					case 50:
+						bCtrl&&(box.style.background="blue");
+						break;
+					//按下Ctrl+3
+					case 51:
+						if (bCtrl) {
+							box.style.top=boTop;
+							box.style.left=boLeft;
+							box.style.width=boWidth;
+							box.style.height=boHeight;
+							box.style.background=boColor;
+						}
+						break;
+				}
+				return false;
+			};
+			//按键抬起停止操作
+			document.onkeyup=function(event){
+				var event=event||window.event;
+				switch(event.keyCode){
+					case 37:
+						bLeft=false;
+						break;
+					case 38:
+						bTop=false;
+						break;
+					case 39:
+						bRight=false;
+						break;
+					case 40:
+						bBottom=false;
+						break;
+				}
+			};
+			//获取初始样式
+			function getStyle(obj,attr){
+				if (obj.currentStyle) {
+					return obj.currentStyle[attr];
+				}else{
+					return getComputedStyle(obj,false)[attr];
+				}
+			}
+			//防止溢出
+			function limit(){
+				var doc=[document.documentElement.clientWidth,document.documentElement.clientHeight];
+				box.offsetLeft<=0&&(box.style.left=0);
+				box.offsetTop<=0&&(box.style.top=0);
+				doc[0]-box.offsetLeft-box.offsetWidth<=0&&(box.style.left=doc[0]-box.offsetWidth+"px");
+				doc[1]-box.offsetTop-box.offsetHeight<=0&&(box.style.top=doc[1]-box.offsetHeight+"px");
+			}
+		};
+	</script>
+</head>
+<body>
+	<pre>
+红色方块为键盘操作区域，您可以进行如下操作：
+
+上：↑ 下：↓ 左：← 右：→
+
+Ctrl + 1 : 背景变为绿色
+Ctrl + 2 : 背景变为蓝色
+Ctrl + 3 : 复原
+
+Ctrl + ↑ : 放大
+Ctrl + ↓ : 缩小 
+	</pre>
+	<div></div>
+</body>
+</html>
