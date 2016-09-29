@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>点击Div闪烁</title>
+	<style type="text/css">
+		div{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 200px;
+			height: 200px;
+			margin: -100px 0 0 -100px;
+			background-color: red;
+			text-align: center;
+			font-size: 12px;
+			line-height: 200px;
+			letter-spacing: 5px;
+			color: #fff;
+			cursor:pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementsByTagName("div")[0];
+			var timer=null;
+			box.onclick=function(){
+				var i=0;
+				clearInterval(timer);
+				timer=setInterval(function(){
+					box.style.display=i++%2?"none":"block";
+					i>6&&(clearInterval(timer));
+				},100)
+			}
+		};
+	</script>
+</head>
+<body>
+	<div>
+		点击我就闪
+	</div>
+</body>
+</html>
