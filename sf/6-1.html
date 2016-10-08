@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>完美拖拽</title>
+	<style type="text/css">
+		body{
+			background: black;
+			font-family: Arial;
+			font-size: 12px;
+		}
+		.box{
+			width: 300px;
+			height: 150px;
+			color: #fff;
+			background: #333;
+			border: 2px solid #ccc;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin-top: -75px;
+			margin-left: -150px;
+		}
+		.top{
+			height: 25px;
+			background: #222;
+			border-bottom: 2px solid #ccc;
+			cursor: move;
+		}
+		.top span{
+			float: right;
+			line-height: 25px;
+			margin-right: 10px;
+			cursor: pointer;
+		}
+		.top span:hover{
+			color: #26C8D8;
+		}
+		.main p{
+			margin: 16px;
+			letter-spacing: 1px;
+		}
+		.main p span{
+			color: yellow;
+			font-weight: bold;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementsByClassName("box")[0];
+			var top=document.getElementsByClassName("top")[0];
+			var ospan=document.getElementsByClassName("main")[0].getElementsByTagName("span");
+			var back=document.getElementsByClassName("top")[0].getElementsByTagName("span")[0];
+			var disX=disY=0;
+			var bDrag=false;
+			var aPos=[
+				{
+					x:box.offsetLeft,
+					y:box.offsetTop
+				}
+			]
+			//鼠标按下
+			top.onmousedown=function(event){
+				bDrag=true;
+				var event=event||window.event;
+				disX=event.clientX - box.offsetLeft;
+				disY=event.clientY - box.offsetTop;
+
+				aPos.push({x:box.offsetLeft,y:box.offsetTop});
+
+				this.setCapture && this.setCapture();
+
+				return false;
+			};
+			//鼠标拖拽
+			document.onmousemove=function(event){
+				if (!bDrag) {
+					return;
+				}else{
+					var event=event||window.event;
+					var iL=event.clientX-disX;
+					var iT=event.clientY-disY;	
+
+					var maxL=document.documentElement.clientWidth-box.offsetWidth;
+					var maxT=document.documentElement.clientHeight-box.offsetHeight;
+
+					iL = iL < 0 ? 0 : iL;
+					iL = iL > maxL ? maxL : iL;
+
+					iT = iT < 0 ? 0 : iT;
+					iT = iT > maxT ? maxT : iT;
+
+					box.style.marginTop = box.style.marginLeft = 0;
+					box.style.left=iL+"px";
+					box.style.top=iT+"px";
+
+					aPos.push({x:iL,y:iT});
+					status();
+				}
+				return false;
+
+			};
+			//鼠标抬起，结束拖拽
+			document.onmouseup=window.onblur=top.onlosecapture=function(){
+				bDrag=false;
+				top.releaseCapture && top.releaseCapture();
+				status();
+			};
+			//回放拖动轨迹
+			back.onclick=function(){
+				if (aPos.length==1) {
+					return;
+				}else{
+					var timer=setInterval(function(){
+						var oPos=aPos.pop();
+						oPos?(box.style.left=oPos.x+"px",box.style.top=oPos.y+"px",status()):clearInterval(timer);
+					},30);
+				}
+			
+			};
+			//阻止回放按钮事件冒泡
+			back.onmousedown=function(event){
+				(event||window.event).cancelBubble=true;
+			}
+			//内容区显示数据
+			function status(){
+				ospan[0].innerHTML=bDrag;
+				ospan[1].innerHTML=box.offsetTop;
+				ospan[2].innerHTML=box.offsetLeft;
+			}
+			//获取初始值，初始调用
+			status();
+		}
+	</script>
+</head>
+<body>
+	<div class="box">
+		<div class="top">
+			<span>点击回放拖动轨迹</span>
+		</div>
+		<div class="main">
+			<p>Drag: <span>false</span></p>
+			<p>offsetTop: <span></span></p>
+			<p>offsetLeft: <span></span></p>
+		</div>
+	</div>
+</body>
+</html>
