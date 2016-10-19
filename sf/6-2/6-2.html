@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>仿微博</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+		}
+		body{
+			background: #3c3a3b;
+			font-family: "微软雅黑";
+		}
+		.clearfix:after{
+			clear: both;
+			display: block;
+			content: "";
+		}
+		.box{
+			background: #fff;
+			border-radius: 10px;
+			width: 32%;
+			min-width:500px;
+			margin: 10px auto;
+		}
+		.enter{
+			padding:  10px 20px 10px 20px;
+			background: url(img/boxBG.jpg) repeat-x 0 bottom;
+		}
+		a{
+			text-decoration: none;
+		}
+		a:hover{
+			text-decoration: underline;
+		}
+		h2{
+			font-weight: normal;
+			font-size: 21px;
+		}
+		.check{
+			position: relative;
+			margin:10px 0;
+		}
+		input.name{
+			padding: 3px;
+			height: 20px;
+			border: 1px solid #d0d0d0;
+			background: url(img/inputBG.png) no-repeat;
+			border-radius: 6px;
+		}
+		.headimg{
+			position: absolute;
+			left: 170px;
+			top: 0;
+		}
+		.enter .headimg img{
+			box-sizing: border-box;
+			width: 30px;
+			height: 30px;
+			border-radius: 5px;
+			opacity: 0.5;
+			cursor: pointer;
+		}
+		.enter .headimg img:hover{
+			opacity: 1;
+			border: 1px solid red;
+		}
+		.nowheader{
+			opacity: 1!important;
+			border: 1px solid red;
+		}
+		.write{
+			width: 99%;
+			height: 60px;
+			resize: none;
+			padding: 3px 0 10px 3px;
+			border: 1px solid #d0d0d0;
+			background: url(img/inputBG.png) no-repeat;
+			border-radius: 6px;
+		}
+		.count{
+			line-height: 30px;
+			float: right;
+		}
+		.count span{
+			padding: 10px;
+			vertical-align: middle;
+			font-size: 14px;
+			color: #999;
+		}
+		.count span strong{
+			padding: 0 3px;
+			font-family: Georgia;
+			font-size: 23px;
+		}
+		.enterb{
+			float: right;
+			margin-top: 6px;
+			width: 112px;
+			height: 30px;
+			letter-spacing: 2px;
+			background: url(img/btn.png) no-repeat;
+			border: none;
+			cursor: pointer;
+			outline: none;
+		}
+		.enterb:hover{
+			background-position: 0 -30px;
+		}
+		.main{
+			margin: 10px;
+		}
+		.main_top{
+			background: #e3eaec;
+			height: 33px;
+			position: relative;
+		}
+		.main_top span{
+			position: absolute;
+			bottom: 0;
+			left: 10px;
+			font-size: 15px;
+			padding: 3px 5px 3px 5px;
+			background: #fff;
+		}
+		.main ul{
+			width: 100%;
+			padding-bottom: 10px;
+		}
+		.main ul li{
+			position: relative;
+			margin-left: 10px;
+			padding: 5px;
+			list-style: none;
+			border-bottom: 1px dashed #d8d8d8;
+		}
+		.userPic{
+			position: absolute;
+			left: 0px;
+			top: 10px;
+		}
+		.content{
+			padding-bottom: 10px;
+			font-size: 15px;
+			letter-spacing: .5px;
+			padding-top: 5px;
+			margin-left: 60px;
+		}
+		.content .msg a{
+			color: #2b4a78;
+			font-size: 14px;
+		}
+		.content .msg p{
+			display: inline-block;
+			width: 100%;
+			word-wrap: break-word;
+		}
+		.content .time{
+			font-size: 12px;
+			color: #889db6;
+			margin-top: 10px;
+		}
+		.main li>a{
+			display: none;
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			font-size: 12px;
+			color: #889db6;
+		}
+		.main ul li:hover{
+			background: #f5f5f5;
+		}
+		.main ul li:hover a{
+			display: inline-block;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var enter=document.getElementsByClassName("enterb")[0];
+			var oMain=document.getElementsByClassName("main")[0].getElementsByTagName("ul")[0];
+			var aLi=oMain.getElementsByTagName("li");
+			var write=document.getElementsByClassName("write")[0];
+			var name=document.getElementsByClassName("name")[0];
+			var oDelete=document.getElementsByClassName("delete");
+			var sform=document.getElementsByClassName("enter")[0].getElementsByTagName("form");
+			var iSend=document.getElementsByClassName("enter")[0].getElementsByClassName("send");
+			var header=document.getElementsByClassName("headimg")[0].getElementsByTagName("img");
+			var maxL=document.getElementsByClassName("maxL")[0];
+
+
+			//点击"广播"调用fGo函数
+			enter.onclick=fGo;
+			//调用发送，fnSend函数，将当前用户名，内容与时间作为参数传入
+			//调用删除，del函数重新迭代li中的"删除"元素，更新删除元素的个数，重新全部绑定删除函数
+			function fGo(){
+				fnSend(name.value,write.value,vDate);
+				del();
+			}
+
+			//获取当前时间
+			var oDate=new Date();
+			//将当前日期重新整合，一位数时加0
+			function fnDate(t){
+				if(t<10){
+					return "0"+t;
+				}else{
+					return ""+t;
+				}
+			}
+			//时间，？月？日？：？
+			var vDate=fnDate(oDate.getMonth()+1)+"月"+fnDate(oDate.getDate())+"日"+fnDate(oDate.getHours())+":"+fnDate(oDate.getMinutes());
+			
+			//选择头像
+			for (var i = 0; i < header.length; i++) {
+				header[i].onclick=function(){
+					for (var j = 0; j < header.length; j++) {
+						header[j].className="";
+					}
+					this.className="nowheader";
+				}
+			}
+			
+			//还能输入多少字
+			function fMaxLen(inp,maxLen){
+				if(inp.value.length>maxLen){
+					alert("输入字符超出限制！已自动删除超出内容！");
+					inp.value=inp.value.substring(0,maxLen);
+					maxL.innerText=0;
+				}else if(arguments[0]==iSend[0]){
+					return;
+				}else{
+					maxL.innerText=(maxLen-inp.value.length);
+				}
+			}
+			iSend[1].onfocus=function(){
+				fMaxLen(this,140);
+			}
+			iSend[0].onkeyup=function(){
+				fMaxLen(this,10);
+			}
+			iSend[1].onkeyup=function(){
+				fMaxLen(this,140);
+			}
+
+			//Ctrl+Enter发送微博
+			document.onkeydown=cEnter;
+			function cEnter(event){
+				var event=event||window.event;
+				event.ctrlKey && event.keyCode == 13 && fGo();
+			}
+
+			//创建li生成内容
+			function fnSend(userName,content,fDate){
+				var reg = /^\s*$/g;
+				if(reg.test(userName)){
+					alert("请输入用户名!");
+					//输入框获得焦点
+					iSend[0].focus();
+				}else if (reg.test(content)) {
+					alert("说点什么吧!");
+					iSend[1].focus();
+				}else{
+					var oLi=document.createElement("li");
+					oLi.innerHTML="<div class='userPic'><img src='"+document.getElementsByClassName("nowheader")[0].src+"'/></div><div class='content'><div class='msg'><a href='javascript:'>"+userName+"<span> :</span></a><p>"+content+"</p></div><div class='time'><span>"+fDate+"</span></div></div><a class='delete' href='javascript:'>删除</a>"
+					
+					aLi.length ? oMain.insertBefore(oLi, aLi[0]) : oMain.appendChild(oLi);
+
+					//生成新内容时动态效果
+					var now_height=Lalpha=0;
+					var oLi_height=oLi.clientHeight-20;
+					oLi.style.height=0;
+					oLi.style.opacity=0;
+					enter_t=setInterval(function(){	
+						now_height+=10;
+						oLi.style.height=(now_height+"px");
+						if (now_height>oLi_height) {
+							clearInterval(enter_t);
+							enter_t=setInterval(function(){
+								oLi.style.opacity=(Lalpha+=10)/100;
+								Lalpha>100 && clearInterval(enter_t);
+							},30);
+						}
+					},30);
+
+					//发送之后重置表单
+					for (var i = 0; i < sform.length; i++) {
+						sform[i].reset();
+					}
+				}
+			}
+
+			//
+			//删除
+			function del(){
+				for (var i = 0; i < oDelete.length; i++) {
+					oDelete[i].onclick=function(){
+						oParent=this.parentNode;
+						var iHeight=oParent.offsetHeight;
+						var alpha=100;
+						timer=setInterval(function(){
+							oParent.style.opacity=((alpha-=10)/100);
+							if (alpha<0) {
+								clearInterval(timer);
+								timer=setInterval(function(){
+									iHeight-=10;
+									iHeight<0 && (iHeight=0);
+									oParent.style.height=(iHeight+"px");
+									iHeight==0 && (clearInterval(timer),oMain.removeChild(oParent));
+								},30);
+							}
+						},30);
+						//连续点击删除会导致重复，失效。点击之后立即将当前点击事件设置为null
+						this.onclick = null;
+					}
+				}
+			}
+			//立即调用删除函数，文档加载完毕确认文档中的删除元素数量，给每一个删除绑定函数
+			del();
+		}
+		
+	</script>
+</head>
+<body>
+	<div class="box">
+		<div class="enter">
+			<h2>来，说说你在做什么，想什么</h2>
+			<div class="check">
+				<form>
+					<input class="name send" type="text" name="" placeholder="用户名">
+				</form>
+				<p class="headimg">
+					<img class="nowheader" src="img/face2.gif">
+					<img src="img/face1.gif">
+					<img src="img/face3.gif">
+					<img src="img/face4.gif">
+					<img src="img/face5.gif">
+					<img src="img/face6.gif">
+					<img src="img/face7.gif">
+					<img src="img/face8.gif">
+				</p>
+			</div>
+			<form>
+				<textarea class="write send" placeholder="说点什么吧..."></textarea>
+			</form>
+			<div class="clearfix">
+				<p class="count">
+					<span>还能输入<strong class="maxL">140</strong>个字</span>
+					<input class="enterb" type="button" name="">
+				</p>
+			</div>
+		</div>
+		<div class="main">
+			<div class="main_top">
+				<span>大家在说</span>
+			</div>
+			<ul>
+				<li>
+					<div class="userPic"><img src="img/face.gif"/></div>
+					<div class="content">
+						<div class="msg">
+							<a href="javascript:">苟利国家生死已<span> : </span></a>
+							<p>新增头像选择功能!</p>
+						</div>
+						<div class="time">
+							<span>07月05日12:08</span>
+						</div>
+					</div>
+					<a class="delete" href="javascript:">删除</a>
+				</li>
+				<li>
+					<div class="userPic"><img src="img/face.gif"/></div>
+					<div class="content">
+						<div class="msg">
+							<a href="javascript:">苟利国家生死已<span> : </span></a>
+							<p>新增Ctrl+Enter快捷键发送微博!</p>
+						</div>
+						<div class="time">
+							<span>07月05日12:08</span>
+						</div>
+					</div>
+					<a class="delete" href="javascript:">删除</a>
+				</li>
+				<li>
+					<div class="userPic"><img src="img/face.gif"/></div>
+					<div class="content">
+						<div class="msg">
+							<a href="javascript:">苟利国家生死已<span> : </span></a>
+							<p>新增微博删除功能!</p>
+						</div>
+						<div class="time">
+							<span>07月05日12:08</span>
+						</div>
+					</div>
+					<a class="delete" href="javascript:">删除</a>
+				</li>
+				<li>
+					<div class="userPic"><img src="img/face.gif"/></div>
+					<div class="content">
+						<div class="msg">
+							<a href="javascript:">苟利国家生死已<span> : </span></a>
+							<p>新增记录微博发送时间功能!</p>
+						</div>
+						<div class="time">
+							<span>07月05日12:08</span>
+						</div>
+					</div>
+					<a class="delete" href="javascript:">删除</a>
+				</li>
+				<li>
+					<div class="userPic"><img src="img/face.gif"/></div>
+					<div class="content">
+						<div class="msg">
+							<a href="javascript:">苟利国家生死已<span> : </span></a>
+							<p>仿微博效果已上线，欢迎大家测试!</p>
+						</div>
+						<div class="time">
+							<span>07月05日12:08</span>
+						</div>
+					</div>
+					<a class="delete" href="javascript:">删除</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
